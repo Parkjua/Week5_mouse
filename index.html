@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script>
+      window.onload = function () {
+        const mouseCursor = document.querySelector(".cursor");
+        const follower = document.querySelector(".cursor_follower");
+        const follower2 = document.querySelector(".cursor_follower2");
+        var navLinks = document.querySelectorAll(".gnbMenu li, #title1, li"); //메뉴 링크
+
+        // var follower = document.querySelector(".cursor_follower");
+        console.log(navLinks);
+        navLinks.forEach(function (menu) {
+          console.log(menu);
+
+          menu.addEventListener("mouseover", function () {
+            console.log("over");
+            mouseCursor.classList.add("show");
+            follower.classList.add("show");
+            follower2.classList.add("show");
+            // mouseCursor.style.zIndex = "-1";
+          });
+
+          menu.addEventListener("mouseout", function () {
+            console.log("out");
+            mouseCursor.classList.remove("show");
+            follower.classList.remove("show");
+            follower2.classList.remove("show");
+            // mouseCursor.style.zIndex = "-2";
+          });
+        });
+
+        document.addEventListener("mousemove", (e) => {
+          gsap.to(mouseCursor, {
+            duration: 0.3,
+            left: e.pageX - 5,
+            top: e.pageY - 5,
+          });
+          gsap.to(follower, {
+            duration: 1.5,
+            left: e.pageX - 13,
+            top: e.pageY - 13,
+          });
+          gsap.to(follower2, {
+            duration: 0.9,
+            left: e.pageX - 20,
+            top: e.pageY - 20,
+          });
+        });
+
+        document.querySelectorAll(".text2").forEach((em) => {
+          em.addEventListener("mouseover", () => {
+            mouseCursor.classList.add("show1");
+            follower.classList.add("show1");
+          });
+          em.addEventListener("mouseout", () => {
+            mouseCursor.classList.remove("show1");
+            follower.classList.remove("show1");
+          });
+        });
+
+        document.querySelectorAll(".text3").forEach((em) => {
+          em.addEventListener("mouseover", () => {
+            mouseCursor.classList.add("show2");
+            follower.classList.add("show2");
+          });
+          em.addEventListener("mouseout", () => {
+            mouseCursor.classList.remove("show2");
+            follower.classList.remove("show2");
+          });
+        });
+
+        //커스텀 커서의 left값과 top값을 커서의 XY좌표값과 일치시킴
+        function myCursor(e) {
+          document.querySelector(".cursor").style.top = e.pageY + "px";
+          document.querySelector(".cursor").style.left = e.pageX + "px";
+        }
+
+        function Trailer(e) {
+          document.querySelector(".cursor_follower").style.top = e.pageY + "px";
+          document.querySelector(".cursor_follower").style.left =
+            e.pageX + "px";
+        }
+
+        function Trailer2(e) {
+          document.querySelector(".cursor_follower2").style.top =
+            e.pageY + "px";
+          document.querySelector(".cursor_follower2").style.left =
+            e.pageX + "px";
+        }
+
+        window.addEventListener("mousemove", myCursor);
+        document.addEventListener("mousemove", Trailer);
+        document.addEventListener("mousemove", Trailer2);
+      };
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dancing+Script:wght@700&family=Grape+Nuts&family=Poor+Story&display=swap");
+      html {
+        cursor: none;
+      }
+      h1,
+      h2,
+      h4,
+      p,
+      ul,
+      li,
+      ol,
+      a {
+        margin: 0;
+        padding: 0;
+        /* 넓이 높이 보더 사이즈 모두 */
+        box-sizing: border-box;
+        font-family: "Poor Story", cursive;
+      }
+      body {
+        /* cursor: none; */
+
+        background-size: cover;
+        overflow: hidden;
+        background-image: url("img/space1.jpg");
+        background-color: hsla(0, 0%, 100%, 0.1);
+        background-blend-mode: overlay;
+        /* background-repeat: no-repeat; */
+        /* background-color:rgba( 255, 255, 255, 0.5 ); */
+        /* height: 600px; */
+      }
+      a {
+        color: #ffffff;
+        text-decoration: none;
+      }
+      #title1 {
+        color: #ffffff;
+        margin: 0px 20px;
+        padding: 20px 20px;
+        font-size: 40px;
+        font-weight: bolder;
+        font-family: "Poor Story", cursive;
+        z-index: -9999;
+      }
+
+      nav {
+        /* border: solid 3px blue; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+        margin-top: 20px;
+      }
+      .gnbMenu {
+        display: flex;
+      }
+      .gnbMenu li {
+        margin: 0 20px;
+        padding: 0 30px;
+        list-style: none;
+        font-size: 20px;
+        /* border: solid 2px red; */
+        z-index: 9999;
+      }
+
+      .cursor {
+        width: 50px;
+        height: 50px;
+        /* background-image: url("img/커서.jpg"); */
+        /* background-color: rgba(255,255,255,0.1); */
+        border-radius: 50%;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s ease;
+        transition-property: background, transform;
+        pointer-events: none;
+        transform-origin: 100% 100%;
+        /* filter: blur(1px); */
+        backdrop-filter: blur(3px);
+        background-color: #a9a9a9;
+        border: solid 2px white;
+        opacity: 0.1;
+        /* backdrop-filter: grayscale(100%); */
+        /* backdrop-filter: sepia(90%); */
+      }
+
+      #profilimg {
+        border-radius: 50%;
+        position: relative;
+        z-index: -1000;
+        margin-bottom: 10px;
+        width: 350px;
+        height: 350px;
+        /* opacity: 0.48; */
+      }
+
+      .cursor_follower2 {
+        /* border: 1px solid #ffffff ; */
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: #ffd400;
+        border-radius: 50%;
+        user-select: none;
+        pointer-events: none;
+        transition: transform 0.6s ease-in-out, opacity 0.2s ease-in-out;
+        filter: blur(3px);
+        /* box-shadow : 5px 10px 30px 10px #ffa000; */
+        z-index: 0;
+        /* opacity: 0.8; */
+      }
+
+      .cursor_follower {
+        /* border: 1px solid #ffffff ; */
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: #ffffff;
+        border-radius: 50%;
+        user-select: none;
+        pointer-events: none;
+        transition: transform 0.9s ease-in-out, opacity 0.2s ease-in-out;
+        z-index: 1;
+        filter: blur(4px);
+      }
+      .cursor.show {
+        opacity: 0.5;
+        transform: scale(2);
+        background: #ffd400;
+        border: none;
+      }
+      .cursor_follower.show {
+        transform: scale(2);
+        background: #ffffff;
+        border: none;
+      }
+      .cursor_follower2.show {
+        transform: scale(2);
+        background: #ffa000;
+        opacity: 0.5;
+        border: none;
+      }
+      .cursor.show1 {
+        transform: scale(2);
+        background: #ffffff;
+        border: none;
+      }
+      .cursor_follower.show1 {
+        transform: scale(2);
+        background: #0000ff;
+      }
+
+      .cursor.show2 {
+        transform: scale(2);
+        background: #ffffff;
+        border: none;
+      }
+      .cursor_follower.show2 {
+        transform: scale(2);
+        background: #0000ff;
+      }
+
+      #profileSection {
+        position: relative;
+        z-index: -10;
+        text-align: center;
+      }
+
+      h3 {
+        color: #ffffff;
+        font-weight: bold;
+        font-family: "Poor Story", cursive;
+        font-size: 20px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        width: 100px;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        /* margin-left: 750px; */
+      }
+      hr {
+        z-index: 50;
+        width: 150px;
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="cursor"></div>
+      <div class="cursor_follower"></div>
+      <div class="cursor_follower2"></div>
+      <nav>
+        <h1 id="logo"><a href="#" id="title1">UNIVERSE</a></h1>
+        <ul class="gnbMenu">
+          <li><a href="#" class="text1">About</a></li>
+          <li><a href="#" class="text2">Work</a></li>
+          <li><a href="#" class="text1">Profile</a></li>
+          <li><a href="#" class="text2">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section id="profileSection">
+      <img src="img/우주인.jpg" id="profilimg" />
+      <h3><a href="#" class="text3">ZUANG</a></h3>
+      <hr />
+      <ul>
+        <li><a href="#">wndk3309@kaywon.ac.kr</a><br /></li>
+      </ul>
+    </section>
+    <footer></footer>
+  </body>
+</html>
